@@ -66,28 +66,24 @@
 	}
 
 </script>
+
 <div class="todo-app-container">
+	<h1>My Day</h1>
 <input onkeydown={addTodo} placeholder="Add todo" type="text" />
 
-<div class="todos">
-	{#each filteredTodos as todo, i}
-		<div class:completed={todo.done} class="todo">
-			<input oninput={editTodo} data-index={i} value={todo.text} type="text" />
-			<input onchange={toggleTodo} data-index={i} checked={todo.done} type="checkbox" />
-			<button onclick={() => deleteTodo(i)} class="delete-btn">X</button>
-		</div>
-	{/each}
-</div>
-</div>
+	<div class="todos">
+		{#each filteredTodos as todo, i}
+			<div class:completed={todo.done} class="todo">
+				<input oninput={editTodo} data-index={i} value={todo.text} type="text" />
+				<div class="todo-actions">
+					<input onchange={toggleTodo} data-index={i} checked={todo.done} type="checkbox" />
+					<button onclick={() => deleteTodo(i)} class="delete-btn">❌</button>
+				</div>
+			</div>
+		{/each}
+	</div>
 
-<!--<div class="todos">
-	{#each filteredTodos as todo, i}
-		<div class:completed={todo.done} class="todo">
-			<input oninput={editTodo} data-index={i} value={todo.text} type="text" />
-			<input onchange={toggleTodo} data-index={i} checked={todo.done} type="checkbox" />
-		</div>
-	{/each}
-</div>-->
+</div>
 
 <div class="filters">
 	<button onclick={() => setFilter('all')}>All</button>
@@ -99,7 +95,7 @@
 
 <style>
     .todo-app-container {
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
         padding: 1rem;
     }
@@ -131,8 +127,8 @@
 
     .todo input[type='text'] {
         flex-grow: 1;
-        padding-right: 100px; /* Make room for checkbox and delete button */
-        text-overflow: ellipsis;
+        padding-right: 110px; /* Increased to accommodate checkbox and delete button */
+        min-width: 0; /* Allows the input to shrink below its default size */
     }
 
     .todo-actions {
@@ -142,23 +138,25 @@
         transform: translateY(-50%);
         display: flex;
         align-items: center;
+        gap: 5px; /* Add some space between checkbox and delete button */
     }
 
     input[type='checkbox'] {
-        margin-right: 10px;
+        margin: 0; /* Remove default margins */
     }
 
     .delete-btn {
-        background-color: #ff4136;
+        background-color: wheat;
+				border: red solid 1px;
         color: white;
-        border: none;
-        padding: 0.5rem;
+        padding: 0.2rem;
         cursor: pointer;
         border-radius: 4px;
+        white-space: nowrap; /* Prevent "Delete" from wrapping */
     }
 
     .delete-btn:hover {
-        background-color: #ff1a1a;
+        background-color: lightpink;
     }
 
     .filters {
@@ -182,66 +180,12 @@
     }
 
     .remaining {
-        color: black;
+				font-size: 1.5rem;
+        color: #0A2342;
         text-align: center;
     }
-</style>
-
-<!--
-<style>
-    .todos {
-        display: grid;
-        gap: 1rem;
-        margin-block-start: 1rem;
-    }
-
-    .todo {
-        position: relative;
-        transition: opacity 0.3s;
-    }
-
-    .completed {
-        opacity: 0.5;
-    }
-
-    input[type='text'] {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    input[type='checkbox'] {
-        position: absolute;
-        right: 4%;
-        top: 50%;
-        translate: 0% -50%;
-    }
-
-    .filters {
-        margin-block: 1rem;
-    }
-		.remaining {
-				color: black;
+		h1 {
+        color: #0A2342;
+        text-align: center;
 		}
-    .delete-btn {
-        position: absolute;
-        right: 1%;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: #ff4136;
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .delete-btn:hover {
-        background-color: #ff1a1a;
-    }
-
-    input[type='checkbox'] {
-        right: 25%;  /* Adjust this to make room for the delete button */
-    }
-
 </style>
--->
